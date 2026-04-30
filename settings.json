@@ -1,0 +1,11 @@
+{
+    "checkpointing": {
+        "enabled": true,
+        "mode": "auto",
+        "retention": 10
+    },
+    "cli": {
+        "default_mode": "yolo",
+        "log_level": "info"
+    }
+}
