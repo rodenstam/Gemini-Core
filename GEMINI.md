@@ -5,44 +5,30 @@ Detta är det övergripande operativsystemet för all AI-automation. Systemet ä
 ## ⚡️ Driftläge: YOLO (Autonomous Mode)
 1. **Local Execution**: All kod och logik körs från `C:\Gemini-Core`.
 2. **Professional Setup**: Separera exekvering (C:) från presentation (H:).
-3. **Beslutsamhet**: Vid osäkerhet kring PARA-sortering, prioritera mappar i '01 Projects' eller '02 Areas'.
-4. **Hybrid Output**: Kommunikation riktad till användaren sker primärt i Markdown. Data som processas mellan system eller i bakgrunden använder JSON.
-4. **Agentisk Struktur**: Vi använder "Skills" (instruktioner) och "Agents" (personor) för att styrra AI-arbetet, inspirerat av Superpowers-ramverket.
+3. **Mirror-Logic**: All operativ dokumentation speglas automatiskt från `C:` till `H:` via `Mirror-Skill`.
+4. **Agentisk Struktur**: Vi använder "Skills" (instruktioner) och "Agents" (personor) för att styra AI-arbetet.
 
-## 📂 Systemstruktur
-- **`Engine/`**: Maskinrummet. Innehåller all Python-logik och verktyg.
-- **`Skills/`**: AI-instruktioner (SKILL.md) för specifika arbetsflöden (t.ex. planering, kodning).
-- **`Agents/`**: Definitioner av AI-personor (t.ex. "Job Hunter", "Architect").
-- **`Shared/`**: Globala hjälpare (t.ex. `gdrive_helper.py`).
-    - **`Lego_Collector/`**: Metadatahantering för samlingen.
-- **`Data/`**: Systemets minne (Credentials & Register).
-- **`Rules/`**: Globala standarder.
-- **`docs/`**: Arkitektur, loggar och roadmap.
-- **`Workspace/`**: Aktivt arbete, implementationer och tillfälliga filer.
+## 📂 Systemstruktur (C:\Gemini-Core)
+- **`Workspace/`**: Övergripande planering och arkitektur (Speglar till `Management/` i Obsidian).
+- **`Projects/`**: Aktiva projekt (t.ex. Job-Hunter, Lego-Collector). Varje projekt har sin egen kod och `docs/`.
+- **`Skills/`**: Modulära AI-förmågor (t.ex. `mirror`, `brainstorming`). (Speglar till `Knowledge/` i Obsidian).
+- **`Shared/`**: Globala Python-verktyg och hjälpare.
+- **`Data/`**: Systemets minne (Credentials & Register). **Ignoreras av Git.**
+- **`docs/`**: Teknisk systemdokumentation. (Speglar till `System/docs/` i Obsidian).
 
-## 🔌 Integrationer
-- **PDF Engine (Global)**: Möjliggör konvertering av Markdown till professionella PDF-dokument.
-    - *Logik*: `Engine/Shared/pdf_generator.py`
-- **JobSearch API (Job Hunter)**: Koppling till Platsbanken för jobbevakning och ansökningsstöd.
-    - *Logik*: `Engine/Job_Hunter/job_hunter.py`
-- **Google Drive API**: Direkt läsning/skrivning på Drive.
-- **Google Gemini API**: Systemets hjärna för analys och textskapande.
-- **Brickset API**: Metadata för LEGO-samlingen.
+## 🪞 Speglings-mappning (C: -> H:)
+Systemet använder `Skills/mirror/mirror.py` för att hålla Obsidian uppdaterat:
+- `Workspace/` -> `Management/`
+- `Projects/` -> `Projects/`
+- `Skills/` -> `Knowledge/`
+- `docs/` -> `System/docs/`
+- Root `.md` -> Root
 
-## 📊 Systemstatus
-För aktuell status, historik och framtidsplaner, se:
-- **`docs/DEV_LOG.md`**: Vad som gjorts under sessionerna.
-- **`docs/ROADMAP.md`**: Systemets framtidsplaner.
-- **`docs/gemini-core-architecture.md`**: Den tekniska ritningen.
-
-## 📜 Regler & Arv
-- **Proaktiv Dokumentation**: Efter varje betydande teknisk förändring, strukturell ändring eller löst problem SKA Gemini antingen uppdatera relevant dokumentation i projektets `docs/` automatiskt eller fråga användaren om en uppdatering ska genomföras.
-- **Arvshierarki**: Projekt-specifika `GEMINI.md`-filer ärver grundinställningar från denna fil men har företräde vid specifika instruktioner.
-- **Portabilitet**: All kod och alla skript SKALL använda relativa sökvägar för att säkerställa 100% funktion oavsett enhetsbokstav på Google Drive.
-- **Språk**: Organisation och metadata sker primärt på svenska.
-
-## 🧠 Filosofi
-Vi separerar den **Aktiva Verkstaden** (Gemini-Core) från det **Statisk Biblioteket** (PARA 01-04). Allt som rör AI-utveckling och processering sker inuti Gemini-Core för att hålla PARA-strukturen ren och brusfri. Den gamla "tunga" pipelinen är nu arkiverad i PARA-strukturen för att ge plats åt dagens mer flexibla och portabla import-verktyg.
+## 📜 Regler & Mandat
+- **Sanningen på C:** Alla ändringar i dokumentation SKALL ske på `C:\Gemini-Core`. Obsidian-vyn på `H:` är endast för läsning.
+- **Auto-Mirror**: Efter att ha skapat eller ändrat en Markdown-fil som ska vara synlig i Obsidian, KÖR `python Skills/mirror/mirror.py`.
+- **Git First**: Alla kodändringar ska commitas till det privata GitHub-repot.
+- **Säkerhet**: Spegla ALDRIG filer i `Data/Credentials/` eller `.env`.
 
 ---
-*Senast uppdaterad: 2026-05-01 (Lokal Arkitektur C: aktiverad)*
+*Senast uppdaterad: 2026-05-01 (Mirror-Skill implementerad)*

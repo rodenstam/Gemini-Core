@@ -42,7 +42,7 @@ Att transformera Gemini-Core från en molnbaserad skript-samling till en profess
 - [x] Skapa privat GitHub-repo och pusha koden.
 
 ### FAS 3: Bryggan & CLI-Lansering
-- [ ] Implementera `Mirror-Skill` för dokument-spegling till `H:`.
+- [x] Implementera `Mirror-Skill` för dokument-spegling till `H:`.
 - [ ] Uppdatera alla projekt-sökvägar till att peka på `H:` för output.
 - [ ] Starta den nya `main.py` as central operatörs-hubb.
 
