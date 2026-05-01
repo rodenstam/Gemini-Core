@@ -1,4 +1,8 @@
 {
+    "paths": {
+        "source_root": "C:\\Gemini-Core",
+        "mirror_root": "H:\\My Drive\\Obsidian\\Gemini-Core"
+    },
     "checkpointing": {
         "enabled": true,
         "mode": "auto",
