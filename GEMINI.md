@@ -11,7 +11,7 @@ Detta är det övergripande operativsystemet för all AI-automation. Systemet ä
 ## 📂 Systemstruktur (C:\Gemini-Core)
 - **`Workspace/`**: Övergripande planering och arkitektur (Speglar till `Management/` i Obsidian).
 - **`Projects/`**: Aktiva projekt (t.ex. Job-Hunter, Lego-Collector). Varje projekt har sin egen kod och `docs/`.
-- **`Skills/`**: Modulära AI-förmågor (t.ex. `mirror`, `brainstorming`). (Speglar till `Knowledge/` i Obsidian).
+- **`Skills/`**: Modulära AI-förmågor (t.ex. `mirror`, `brainstorming`). (Speglar till `Skills/` i Obsidian).
 - **`Shared/`**: Globala Python-verktyg och hjälpare.
 - **`Data/`**: Systemets minne (Credentials & Register). **Ignoreras av Git.**
 - **`docs/`**: Teknisk systemdokumentation. (Speglar till `System/docs/` i Obsidian).
@@ -20,7 +20,7 @@ Detta är det övergripande operativsystemet för all AI-automation. Systemet ä
 Systemet använder `Skills/mirror/mirror.py` för att hålla Obsidian uppdaterat:
 - `Workspace/` -> `Management/`
 - `Projects/` -> `Projects/`
-- `Skills/` -> `Knowledge/`
+- `Skills/` -> `Skills/`
 - `docs/` -> `System/docs/`
 - Root `.md` -> Root
 

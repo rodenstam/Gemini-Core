@@ -19,7 +19,7 @@ class MirrorSkill:
         self.mappings = {
             "Workspace": "Management",
             "Projects": "Projects",
-            "Skills": "Knowledge",
+            "Skills": "Skills",
             "docs": "System/docs"
         }
         
