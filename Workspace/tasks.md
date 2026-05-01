@@ -31,6 +31,19 @@ Målet är att alla val i `main.py` ska fungera felfritt i den nya lokala miljö
 - [ ] **Workflow Definition**
     - [ ] Designa standard-workflowet för Gemini-Core (Planering -> Exekvering -> Spegling).
 
+## 🧬 Framtida Evolution: v4.0 (The Hybrid Core)
+- [ ] **Manifest-Migrering**
+    - [ ] Designa YAML-schema för `GEMINI.md`-frontmatter.
+    - [ ] Uppgradera alla aktiva projekt med korrekta manifest.
+- [ ] **System Guard (auditor.py)**
+    - [ ] Migrera `Experimental/core_auditor.py` till `Shared/auditor.py`.
+    - [ ] Implementera global beroende-check och schemavalidering.
+- [ ] **Volatile Memory Layer**
+    - [ ] Utforska lättviktsalternativ för en lokal JSON/Vector memory bus.
+- [ ] **Atomic Background Mirroring**
+    - [ ] Refaktorera `mirror.py` till Stage-and-Swap metodik.
+    - [ ] Integrera som en tyst bakgrundsprocess i `main.py`.
+
 ## ✅ Genomförda Milstolpar
 - [x] Migrering till `C:\Gemini-Core`.
 - [x] Etablering av privat GitHub-repo.

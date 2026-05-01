@@ -12,10 +12,16 @@
 *   **Motto**: "Code that doesn't run because of paperwork is useless."
 *   **Risk**: Technical debt and "Context Drift".
 
-## 🛠️ The Process: "The Debating Chamber"
+### 3. 🚀 The Visionary (Guardian of the Future)
+*   **Focus**: Paradigm shifts, AI-native workflows, removing human-centric constraints, and radical innovation.
+*   **Motto**: "The best way to predict the future is to build it differently."
+*   **Risk**: Speculative over-reach and "Blue Sky" detachment from current technical constraints.
 
-1.  **Stage 1: Critique**: The Architect reviews the current `WORKFLOW.md` and identifies all points of failure (using the 5 criticisms we just discussed).
-2.  **Stage 3: Synthesis**: A third agent (The Moderator/CLI Agent) summarizes the debate into a **"Balanced Workflow v3.1"**.
+## 🛠️ The Process: "The Trialogue"
+
+1.  **Stage 1: Position**: Each agent presents their perspective on a specific proposal or problem.
+2.  **Stage 2: Critique**: The agents challenge each other's assumptions (The Architect questions safety, The Pragmatist questions friction, The Visionary questions the status quo).
+3.  **Stage 3: Synthesis**: The Moderator (CLI Agent) synthesizes the three perspectives into a "vNext" solution.
 
 ## 🚀 How to Execute this in Gemini-Core
 
