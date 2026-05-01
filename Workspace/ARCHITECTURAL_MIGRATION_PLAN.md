@@ -39,7 +39,7 @@ Att transformera Gemini-Core från en molnbaserad skript-samling till en profess
 ### FAS 2: Git-Integration (Säkerhet)
 - [x] Initiera Git-repo i `C:\Gemini-Core`.
 - [x] Skapa en strikt `.gitignore` (Skydda nycklar!).
-- [ ] Skapa privat GitHub-repo och pusha koden.
+- [x] Skapa privat GitHub-repo och pusha koden.
 
 ### FAS 3: Bryggan & CLI-Lansering
 - [ ] Implementera `Mirror-Skill` för dokument-spegling till `H:`.
