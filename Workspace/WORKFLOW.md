@@ -39,5 +39,5 @@ Detta dokument definierar standardprocessen för hur arbete utförs i Gemini-Cor
     *   `DEV_LOG.md` uppdateras löpande.
 
 ---
-*Status: Active (Balanced v3.1)*
+*Status: Migrating to v4.0 (See PLAN_EVOLUTION_V4.md)*
 *Senast uppdaterad: 2026-05-01*
