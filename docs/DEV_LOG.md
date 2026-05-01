@@ -2,6 +2,26 @@
 
 Här loggas alla större arkitektoniska förändringar och sessioner på systemnivå.
 
+## [2026-05-01] - Workflow Optimization: Agent Dialectic (v3.1)
+**Status:** Slutförd ✅
+**Beskrivning:** Optimering av systemets arbetsflöde genom en "Agent Dialectic" mellan arkitektoniska och pragmatiska perspektiv. Resultatet är v3.1 som balanserar säkerhet med hastighet.
+
+### Genomförda åtgärder:
+1.  **Agent Dialectic:** Genomfört en strukturerad debatt mellan "The Architect" och "The Pragmatist" för att identifiera friktion och risker i v3.0-flödet.
+2.  **Workflow v3.1:** Uppdaterat `Workspace/WORKFLOW.md` med:
+    *   **Adaptive Planning:** Enklare hantering av små uppgifter utan onödig dokumentation.
+    *   **Automated Guardrails:** Infört krav på Phase-End Commits och Auto-Mirroring för att minska manuell overhead och öka säkerheten.
+    *   **Verification Tiers:** Differentierade krav på testning beroende på kodens kritiska natur.
+    *   **Flow-State Execution:** Optimerat för längre perioder av autonomt arbete med färre momentum-dödande checkpoints.
+3.  **Dialectic Documentation:** Dokumenterat hela processen och debatten i `Workspace/Strategy/DIALECTIC_WORKFLOW_DEBATE.md`.
+
+### Resultat:
+- Ett mer lättrörligt system som fortfarande behåller arkitektonisk integritet.
+- Minskad risk för desynkronisering mellan C: och H:.
+- Tydligare standarder för när och hur tester ska skrivas.
+
+---
+
 ## [2026-04-28] - Job Hunter CLI Integration & PDF Engine (v5.0)
 **Status:** Slutförd ✅
 **Beskrivning:** Fullständig integration av Job Hunter-projektet i Gemini-Core, driftsättning av PDF-motorn och införande av Hub-arkitektur för kompetensprofiler.
