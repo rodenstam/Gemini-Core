@@ -28,11 +28,10 @@ def main_menu():
             input("\nPress Enter to return to menu...")
         elif choice == '2':
             print("\nLaunching Job-Hunter...")
-            # Placeholder for actual launch logic
-            os.system("python Job-Hunter-CLI/main.py") 
+            os.system("python Projects/Job-Hunter-CLI/engine/job_hunter.py") 
         elif choice == '3':
             print("\nLaunching Lego-Collector...")
-            os.system("python Lego-Collector/main.py")
+            os.system("python Projects/Lego-Collector/engine/brickset_tool.py")
         elif choice == '4':
             print("\nLaunching Citable-RAG...")
             # os.system("python Projects/Citable-RAG/main.py")

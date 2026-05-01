@@ -25,6 +25,8 @@ Målet är att alla val i `main.py` ska fungera felfritt i den nya lokala miljö
 - [x] Etablering av privat GitHub-repo.
 - [x] Implementering av `Mirror-Skill` (C: -> H:).
 - [x] Skapat central hubb (`main.py`).
+- [x] Konsolidering av projekt: Job-Hunter, Lego-Collector och Import-Engine flyttade till `Projects/`.
+- [x] Aktiverat Mirror för alla projekt till Obsidian.
 
 ---
 *Senast uppdaterad: 2026-05-01*
