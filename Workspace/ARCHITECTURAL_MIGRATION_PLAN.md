@@ -43,9 +43,9 @@ Att transformera Gemini-Core från en molnbaserad skript-samling till en profess
 
 ### FAS 3: Bryggan & CLI-Lansering
 - [x] Implementera `Mirror-Skill` för dokument-spegling till `H:`.
-- [ ] Uppdatera alla projekt-sökvägar till att peka på `H:` för output.
-- [ ] Starta den nya `main.py` as central operatörs-hubb.
+- [x] Uppdatera alla projekt-sökvägar till att peka på `H:` för output.
+- [x] Starta den nya `main.py` som central operatörs-hubb.
 
 ---
-*Fastställd: 2026-04-30*
-*Status: Under implementering*
+*Status: Genomförd (2026-05-01)*
+*Version: 3.0 Stable*
