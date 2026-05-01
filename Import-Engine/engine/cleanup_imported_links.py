@@ -4,7 +4,7 @@ import sys
 
 # Lägg till Shared-mappen relativt till detta skript (för framtida bruk)
 script_dir = os.path.dirname(os.path.abspath(__file__))
-shared_path = os.path.abspath(os.path.join(script_dir, "..", "Shared"))
+shared_path = os.path.abspath(os.path.join(script_dir, "..", "..", "Shared"))
 if shared_path not in sys.path:
     sys.path.append(shared_path)
 

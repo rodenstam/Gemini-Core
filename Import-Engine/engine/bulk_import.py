@@ -5,7 +5,7 @@ from googleapiclient.http import MediaIoBaseDownload
 
 # Lägg till Shared-mappen relativt till detta skript
 script_dir = os.path.dirname(os.path.abspath(__file__))
-shared_path = os.path.abspath(os.path.join(script_dir, "..", "Shared"))
+shared_path = os.path.abspath(os.path.join(script_dir, "..", "..", "Shared"))
 if shared_path not in sys.path:
     sys.path.append(shared_path)
 
@@ -83,6 +83,8 @@ def bulk_import(service, folder_id, vault_project_path):
             # Markdown-konvertering
             target_path = os.path.join(target_dir, safe_base + ".md")
             originals_dir = os.path.join(attachments_dir, "Originals")
+            os.makedirs(target_dir, exist_ok=True)
+            os.makedirs(originals_dir, exist_ok=True)
             gdrive_import_tool.import_drive_file(service, item, target_path, originals_dir)
         else:
             # Binär nedladdning (PDF, PPTX, XLS, Images)
@@ -94,6 +96,7 @@ def bulk_import(service, folder_id, vault_project_path):
                 elif "image" in mime: ext = ".png"
             
             target_path = os.path.join(target_dir, safe_base + ext)
+            os.makedirs(target_dir, exist_ok=True)
             
             # Om det är en Google-typ som inte är doc, exportera den
             if mime.startswith('application/vnd.google-apps.'):

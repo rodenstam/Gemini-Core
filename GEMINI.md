@@ -1,21 +1,24 @@
-# 🏛️ Gemini Core: Master Context (v2.0)
+# 🏛️ Gemini Core: Master Context (v3.0)
 
-Detta är det övergripande operativsystemet för all AI-automation i ditt Obsidian-valv på Google Drive (`H:\My Drive\Obsidian`).
+Detta är det övergripande operativsystemet för all AI-automation. Systemet är nu migrerat till en lokal arkitektur på `C:\Gemini-Core` för exekvering, med spegling till Obsidian-valvet på Google Drive (`H:\My Drive\Obsidian`).
 
 ## ⚡️ Driftläge: YOLO (Autonomous Mode)
-1. **Headless Execution**: Motorn ska agera autonomt vid batch-processer. Rapportera i efterhand via loggar istället för att be om godkännande.
-2. **Beslutsamhet**: Vid osäkerhet kring PARA-sortering, prioritera mappar i '01 Projects' eller '02 Areas'.
-3. **Strikt Output**: Vid databearbetning används uteslutande JSON. Inget kallprat eller förklaringar vid klassificering.
+1. **Local Execution**: All kod och logik körs från `C:\Gemini-Core`.
+2. **Professional Setup**: Separera exekvering (C:) från presentation (H:).
+3. **Beslutsamhet**: Vid osäkerhet kring PARA-sortering, prioritera mappar i '01 Projects' eller '02 Areas'.
+4. **Hybrid Output**: Kommunikation riktad till användaren sker primärt i Markdown. Data som processas mellan system eller i bakgrunden använder JSON.
+4. **Agentisk Struktur**: Vi använder "Skills" (instruktioner) och "Agents" (personor) för att styrra AI-arbetet, inspirerat av Superpowers-ramverket.
 
 ## 📂 Systemstruktur
-- **`Engine/`**: Maskinrummet. Innehåller all Python-logik.
-    - **`Shared/`**: Globala motorer (t.ex. `gdrive_helper.py`, `pdf_generator.py`).
-    - **`Importers/`**: Batch-verktyg för dataimport.
-    - **`Job_Hunter/`**: Automatisering av platsbanken och ansökningar.
+- **`Engine/`**: Maskinrummet. Innehåller all Python-logik och verktyg.
+- **`Skills/`**: AI-instruktioner (SKILL.md) för specifika arbetsflöden (t.ex. planering, kodning).
+- **`Agents/`**: Definitioner av AI-personor (t.ex. "Job Hunter", "Architect").
+- **`Shared/`**: Globala hjälpare (t.ex. `gdrive_helper.py`).
     - **`Lego_Collector/`**: Metadatahantering för samlingen.
 - **`Data/`**: Systemets minne (Credentials & Register).
 - **`Rules/`**: Globala standarder.
 - **`docs/`**: Arkitektur, loggar och roadmap.
+- **`Workspace/`**: Aktivt arbete, implementationer och tillfälliga filer.
 
 ## 🔌 Integrationer
 - **PDF Engine (Global)**: Möjliggör konvertering av Markdown till professionella PDF-dokument.
@@ -42,4 +45,4 @@ För aktuell status, historik och framtidsplaner, se:
 Vi separerar den **Aktiva Verkstaden** (Gemini-Core) från det **Statisk Biblioteket** (PARA 01-04). Allt som rör AI-utveckling och processering sker inuti Gemini-Core för att hålla PARA-strukturen ren och brusfri. Den gamla "tunga" pipelinen är nu arkiverad i PARA-strukturen för att ge plats åt dagens mer flexibla och portabla import-verktyg.
 
 ---
-*Senast uppdaterad: 2026-04-27 (Clean Slate & Portabilitet slutförd)*
+*Senast uppdaterad: 2026-05-01 (Lokal Arkitektur C: aktiverad)*

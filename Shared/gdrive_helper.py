@@ -14,7 +14,7 @@ ROBOT_FOLDER_ID = "19g7u7mfZFK-ZPKjvVyGohMaOsubRZRD0"
 
 def get_drive_service():
     creds = None
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    base_dir = os.path.dirname(os.path.dirname(__file__))
     token_path = os.path.join(base_dir, "Data", "Credentials", "token.json")
     creds_path = os.path.join(base_dir, "Data", "Credentials", "credentials.json")
 

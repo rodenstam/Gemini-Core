@@ -1,7 +1,7 @@
 # 📌 Pins: Import Engine
 
 ## 🔑 Centrala Folder-ID:n (Drive)
-- **00_INKORG:** `1jj-X8lKwt-pivh4p8yXAe2MWILeefitl`
+- **00_INKORG:** `1H5X7ETOqyMnOnVyevyt8HuJ36Rju7WsE`
 - **Arkiv (William):** `1m-W4...` (Exempel)
 
 ## 🛠️ Vanliga Kommandon

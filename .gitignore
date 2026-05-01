@@ -1,7 +1,40 @@
-Data/Credentials/
-.venv/
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
 .env
+.flaskenv
+
+# Data & Credentials (CRITICAL)
+Data/Credentials/*
+!Data/Credentials/.gitkeep
+Data/Register/*
+!Data/Register/.gitkeep
+*.json
+!settings.json
+!package.json
+!composer.json
+
+# If we want to allow specific config json files, we can un-ignore them
+# But generally, raw data files should be ignored.
+
+# Logs
 *.log
+logs/
+
+# OS
 .DS_Store
-node_modules/
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Project Specific
+Import-Engine/output/
+Lego-Collector/data/
+Experimental/
