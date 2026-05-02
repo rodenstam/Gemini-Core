@@ -28,9 +28,12 @@
 2.  **Stage 2: Critique**: Agenterna utmanar varandra. (Auditor ifrågasätter säkerhet, Pragmatist ifrågasätter friktion, Architect ifrågasätter struktur).
 3.  **Stage 3: Synthesis**: Moderatorn (CLI Agent) sammanställer perspektiven till en optimerad lösning eller plan.
 
-## 🚀 How to Execute this in Gemini-Core
+## 🚀 Exekvering i Gemini-Core (v4.2)
 
-We can use the `invoke_agent` tool to run these personas in parallel or sequence. 
+När ett komplext beslut krävs (arkitektur, säkerhet eller nya stora funktioner) aktiverar CLI-agenten ett **Dialectic Forum**:
 
-**Proposal for a new task:**
-Create `Workspace/Strategy/DIALECTIC_WORKFLOW_DEBATE.md` where I (as the CLI Agent) will record the dialogue between these two internal perspectives to reach a superior version of our rules.
+1.  **Initiering**: Moderatorn (CLI) anropar relevanta sub-agenter via `invoke_agent`.
+2.  **Protokollföring**: Resonemanget dokumenteras temporärt i `Data/session_state.json` eller som en `PLAN_*.md` i `Workspace/Strategy/` om det leder till ett större initiativ.
+3.  **Beslut**: Resultatet av syntesen fastställs som ett mandat i relevant `GEMINI.md`.
+
+*Exempel på användning: "Aktivera Dialectic Forum med Arkitekten och Pragmatikern för att utvärdera byte av databas."*
