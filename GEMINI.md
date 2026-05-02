@@ -1,5 +1,5 @@
 ---
-version: 4.1
+version: 4.2
 type: core
 dependencies:
   - skill: mirror
@@ -8,9 +8,9 @@ stats:
   success_rate: 1.0
   last_run: 2026-05-02
 ---
-# 🏛️ Gemini Core: Master Context (v4.1)
+# 🏛️ Gemini Core: Master Context (v4.2)
 
-Detta är det centrala operativsystemet för AI-automation. Systemet drivs av en **Manifest-Driven arkitektur** (v4.1) med ett utökat **Agent-Modulärt bibliotek** för Dialectic Forums.
+Detta är det centrala operativsystemet för AI-automation. Systemet drivs av en **Manifest-Driven arkitektur** (v4.2) med ett utökat **Agent-Modulärt bibliotek** för Dialectic Forums.
 
 ## ⚡️ Driftläge: YOLO (Autonomous Mode)
 1. **Local Bus Execution**: All kod och logik körs från `C:\Gemini-Core`. Volatil data lagras i `Data/session_state.json`.
@@ -37,9 +37,9 @@ Systemet använder `Skills/mirror/mirror.py` för att hålla Obsidian uppdaterat
 ## 📜 Regler & Mandat
 - **Manifest-First**: Innan ett projekt påbörjas eller ändras SKALL dess manifest i `GEMINI.md` valideras eller uppdateras.
 - **Sanningen på C**: Alla ändringar i dokumentation SKALL ske på `C:\Gemini-Core`.
-- **Auto-Mirror**: Efter att ha skapat eller ändrat en Markdown-fil, KÖR `python Skills/mirror/mirror.py`.
+- **Auto-Mirror Mandate**: Efter att ha skapat eller ändrat Markdown-filer, eller vid avslutad huvuduppgift, SKALL agenten KÖRA `python Skills/mirror/mirror.py` för att säkerställa att Obsidian-vyn är synkad.
 - **Git First**: Alla kodändringar ska commitas till det privata GitHub-repot.
 - **Local State Bus**: Agenter SKALL använda `Data/session_state.json` för att spåra aktuell fas, uppgift och temporära variabler för att minska beroendet av stora Markdown-filer för kortsiktigt minne.
 
 ---
-*Senast uppdaterad: 2026-05-01 (v4.0 Migration Phase 1)*
+*Senast uppdaterad: 2026-05-02 (v4.2 Migration Slutförd)*
