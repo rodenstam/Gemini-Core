@@ -65,19 +65,37 @@ class Auditor:
 
     def validate_manifests(self):
         """Checks for required fields and valid dependency paths."""
-        required_fields = ['version', 'type', 'dependencies', 'stats']
-        
         for path, data in self.manifests.items():
             rel_path = os.path.relpath(path, self.root)
-            # 1. Check Required Fields
+            manifest_type = data.get('type', 'unknown')
+
+            # 1. Check Required Fields based on type
+            if manifest_type == 'lite':
+                required_fields = ['version', 'type', 'status', 'updated']
+            else:
+                required_fields = ['version', 'type', 'dependencies', 'stats']
+            
             for field in required_fields:
                 if field not in data:
                     self.report.append(f"[-] {rel_path}: Missing required field '{field}'.")
 
-            # 2. Validate Dependencies
+            # 2. Validate "Engineering Four" for standard projects
+            if manifest_type == 'project':
+                project_dir = os.path.dirname(path)
+                docs_dir = os.path.join(project_dir, "docs")
+                core_four = ["SPECS.md", "TASKS.md", "LOG.md", "DECISIONS.md"]
+                if not os.path.exists(docs_dir):
+                    self.report.append(f"[-] {rel_path}: Missing 'docs/' directory.")
+                else:
+                    for doc in core_four:
+                        if not os.path.exists(os.path.join(docs_dir, doc)):
+                            self.report.append(f"[-] {rel_path}: Missing '{doc}' in docs/.")
+
+            # 3. Validate Dependencies
             deps = data.get('dependencies', [])
             if not isinstance(deps, list):
-                self.report.append(f"[-] {rel_path}: 'dependencies' should be a list.")
+                if manifest_type != 'lite': # Lite manifests might not have dependencies
+                    self.report.append(f"[-] {rel_path}: 'dependencies' should be a list.")
                 continue
 
             node_name = self._get_node_name(path, data)
@@ -119,7 +137,7 @@ class Auditor:
         return False
 
     def detect_zombies(self, days=60):
-        """Identifies projects with no devlog updates in the last X days."""
+        """Identifies projects with no LOG.md updates in the last X days."""
         projects_dir = os.path.join(self.root, "Projects")
         if not os.path.exists(projects_dir):
             return
@@ -129,16 +147,16 @@ class Auditor:
             if not os.path.isdir(p_path):
                 continue
             
-            devlog_path = os.path.join(p_path, "docs", "devlog.md")
-            if os.path.exists(devlog_path):
-                mtime = datetime.fromtimestamp(os.path.getmtime(devlog_path))
+            log_path = os.path.join(p_path, "docs", "LOG.md")
+            if os.path.exists(log_path):
+                mtime = datetime.fromtimestamp(os.path.getmtime(log_path))
                 if datetime.now() - mtime > timedelta(days=days):
                     self.zombies.append(f"{project} (Last active: {mtime.strftime('%Y-%m-%d')})")
             else:
-                # If no devlog, check directory mtime as fallback
+                # If no LOG.md, check directory mtime as fallback
                 mtime = datetime.fromtimestamp(os.path.getmtime(p_path))
                 if datetime.now() - mtime > timedelta(days=days):
-                    self.zombies.append(f"{project} (No devlog, directory stale since: {mtime.strftime('%Y-%m-%d')})")
+                    self.zombies.append(f"{project} (No LOG.md, directory stale since: {mtime.strftime('%Y-%m-%d')})")
 
     def save_results(self):
         """Writes the dependency graph to Data/dependency_graph.json."""

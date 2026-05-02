@@ -18,7 +18,7 @@ class MirrorSkill:
         
         # Mapping rules: local_subdir -> obsidian_subdir
         self.mappings = {
-            "Workspace": "Workspace",
+            "Workspace": "Management",
             "Projects": "Projects",
             "Skills": "Skills",
             "docs": "System/docs"
