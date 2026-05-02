@@ -6,6 +6,18 @@ Denna mapp innehåller globala verktyg och motorer som används av flera projekt
 
 ## 📄 Centrala Verktyg
 
+### 1. 🛡️ Auditor (`auditor.py`)
+Systemets "arkitekturväktare" och manifest-validerare.
+- **Funktioner**:
+  - Validerar YAML-frontmatter i `GEMINI.md` och `SKILL.md`.
+  - Kontrollerar trasiga beroenden mellan projekt, skills och delade verktyg.
+  - Genererar en beroendegraf i `Data/dependency_graph.json`.
+  - Identifierar "zombie-projekt" (stagnerade projekt utan uppdateringar).
+- **Användning**:
+  ```bash
+  python Shared/auditor.py [--mirror]
+  ```
+  Använd `--mirror` flaggan för att automatiskt trigga spegling till Obsidian efter en lyckad audit.
 
 ### 2. 📑 PDF Generator (`pdf_generator.py`)
 En motor för att förvandla Markdown-filer till professionella PDF-dokument med snygg styling.
@@ -40,13 +52,4 @@ Det primära verktyget för att dra in dokument från Drive till det lokala syst
 - **`test_pdf.py`**: Ett enkelt testscript för att verifiera att PDF-genereringen fungerar korrekt med din lokala miljö och typsnitt.
 
 ---
-
-## 🧪 Experimental (Under utveckling)
-
-### 1. 🛡️ Core Auditor (`core_auditor.py`)
-Systemets "arkitekturväktare". Denna är under aktiv utveckling och bor för tillfället i `Experimental/`.
-- **Huvudfunktion**: Validering av mappstrukturer och dokument-integritet.
-- **Dokumentation**: Se [CORE_AUDITOR_REFERENCE.md](file:///c:/Gemini-Core/Experimental/CORE_AUDITOR_REFERENCE.md).
-
----
-*Senast uppdaterad: 2026-05-01*
+*Senast uppdaterad: 2026-05-02*

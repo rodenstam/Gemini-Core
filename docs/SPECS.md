@@ -9,6 +9,11 @@
 - [x] **Management Blueprint**: Fastställd modell för projektstyrning ("The Core Four" + Ledningscentral).
 - [x] **Two-Way Integration**: Bevisad förmåga att både läsa och skriva till externa API:er (Brickset).
 - [x] **PDF Engine**: Fungerande Shared-motor för konvertering av Markdown till PDF lokalt.
+- [ ] **Frictionless Integrity (v4.2)**: 
+    - [ ] Standardisera "Engineering Four" (Decisions, Log, Specs, Tasks) dokumentation.
+    - [ ] Implementera "Lite" manifest för mindre verktyg.
+    - [ ] Automatisera mirroring-processen.
+    - [ ] Utöka användningen av `session_state.json` för transient status.
 - [ ] **Global Skill Library**: Skapa fler delade verktyg i `Engine/Shared` (t.ex. Web-scrapers, PDF-analys).
 - [ ] **Cross-Project Communication**: Möjlighet för projekt att dela data med varandra via `Data/`.
 - [ ] **Unified Logging**: En central logg-motor för alla skript.

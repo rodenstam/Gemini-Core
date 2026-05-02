@@ -1,3 +1,13 @@
+---
+version: 4.0
+type: project
+dependencies:
+  - shared: gdrive_helper.py
+  - shared: pdf_generator.py
+stats:
+  success_rate: 0.8
+  last_run: 2026-05-01
+---
 # 📑 Project: Citable-RAG (Source-First Intelligence)
 
 ## Context
@@ -19,3 +29,4 @@ Detta projekt syftar till att bygga en anpassad RAG (Retrieval-Augmented Generat
 - [ ] Kan svara på en fråga och ange exakt sidnummer.
 - [ ] Kan exportera en anteckning till Obsidian med fungerande länkar till källan.
 - [ ] Kan läsa färgmarkeringar från en PDF på Drive.
+

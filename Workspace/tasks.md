@@ -1,8 +1,8 @@
 # 📝 Gemini-Core: Operativ Tasklista
 
-Denna lista hanterar de återstående stegen för att göra alla moduler 100% kompatibla med den nya Arkitektur v3.0.
+Denna lista hanterar de återstående stegen för att göra alla moduler 100% kompatibla med den nya Arkitektur v4.0.
 
-## 🚀 Prioritet: Göra menyn "Meny-redo"
+## 🚀 Prioritet: Operativ Stabilitet (v4.0 Ready)
 Målet är att alla val i `main.py` ska fungera felfritt i den nya lokala miljön.
 
 - [ ] **Job-Hunter-CLI**
@@ -16,43 +16,25 @@ Målet är att alla val i `main.py` ska fungera felfritt i den nya lokala miljö
 - [ ] **Citable-RAG**
     - [ ] Skapa en `main.py` som fungerar som instegspunkt.
     - [ ] Integrera mot den lokala PDF-motorn i `Shared/`.
-- [ ] **Systemoptimering**
-    - [ ] Lägg till "Automisk Mirror" efter avslutade projektkörningar.
-    - [ ] Skapa ett "Update All" kommando för Git-synk av alla sub-moduler.
 
 ## 🧠 Strategisk Utveckling
-- [ ] **Dokumentations-audit**
-    - [ ] Gå igenom alla `GEMINI.md`-filer (root och projekt) för att säkerställa att de matchar v3.0.
-- [ ] **Core 4 Analys**
-    - [ ] Se över hur vi använder "The 4 Core" (Project, Workspace, Shared, Skills) i praktiken.
+- [x] **Workflow Definition**
+    - [x] Designa standard-workflowet för Gemini-Core (Planering -> Exekvering -> Spegling).
 - [ ] **Skills & Agents Setup**
     - [ ] Etablera strukturen för hur nya Skills skapas.
-    - [ ] Definiera de första Agent-personorna i `Agents/`.
-- [ ] **Workflow Definition**
-    - [ ] Designa standard-workflowet för Gemini-Core (Planering -> Exekvering -> Spegling).
+    - [ ] Definiera de första Agent-personorna i `Agents/`. (Arkitekten är klar).
+- [ ] **Dokumentations-audit**
+    - [ ] Gå igenom alla `GEMINI.md`-filer (root och projekt) för att säkerställa att de matchar v4.0.
 
-## 🧬 Framtida Evolution: v4.0 (The Hybrid Core)
-- [ ] **Manifest-Migrering**
-    - [ ] Designa YAML-schema för `GEMINI.md`-frontmatter.
-    - [ ] Uppgradera alla aktiva projekt med korrekta manifest.
-- [ ] **System Guard (auditor.py)**
-    - [ ] Migrera `Experimental/core_auditor.py` till `Shared/auditor.py`.
-    - [ ] Implementera global beroende-check och schemavalidering.
-- [ ] **Volatile Memory Layer**
-    - [ ] Utforska lättviktsalternativ för en lokal JSON/Vector memory bus.
-- [ ] **Atomic Background Mirroring**
-    - [ ] Refaktorera `mirror.py` till Stage-and-Swap metodik.
-    - [ ] Integrera som en tyst bakgrundsprocess i `main.py`.
-
-## ✅ Genomförda Milstolpar
+## ✅ Genomförda Milstolpar (v4.0 Hybrid Core)
+- [x] **Manifest-Migrering**: Designat YAML-schema och uppgraderat alla projekt.
+- [x] **System Guard (auditor.py)**: Migrerat till `Shared/`, implementerat beroende-check och schemavalidering.
+- [x] **Volatile Memory Layer**: Initierat `Data/session_state.json` för agent-status.
+- [x] **Atomic Background Mirroring**: Refaktorerat `mirror.py` till Stage-and-Swap och integrerat i Auditor.
+- [x] **Central Hub Upgrade**: Uppdaterat `main.py` till v4.0 med Auditor-integration.
 - [x] Migrering till `C:\Gemini-Core`.
 - [x] Etablering av privat GitHub-repo.
 - [x] Implementering av `Mirror-Skill` (C: -> H:).
-- [x] Skapat central hubb (`main.py`).
-- [x] Konsolidering av projekt: Job-Hunter, Lego-Collector och Import-Engine flyttade till `Projects/`.
-- [x] Aktiverat Mirror för alla projekt till Obsidian.
-- [x] Arkiverat migrationsplanen till `Workspace/Archive`.
-- [x] Uppdaterat speglings-mapping: Knowledge -> Skills.
 
 ---
 *Senast uppdaterad: 2026-05-01*

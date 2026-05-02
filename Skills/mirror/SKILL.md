@@ -1,3 +1,12 @@
+---
+version: 4.0
+type: skill
+dependencies:
+  - shared: auditor.py
+stats:
+  success_rate: 1.0
+  last_run: 2026-05-01
+---
 # 🪞 Skill: Mirror
 **Syfte**: Att automatiskt spegla operativ dokumentation från den lokala arbetsytan (`C:`) till Obsidian (`H:`) för en ren och tillgänglig läsvy.
 
@@ -7,9 +16,11 @@
 3. **Mappning**: Lokala mappar översätts till en logisk struktur i Obsidian:
    - `Workspace/` -> `Management/`
    - `Projects/` -> `Projects/`
-   - `Skills/` -> `Knowledge/`
+   - `Skills/` -> `Skills/`
+   - `docs/` -> `System/docs/`
 
 ## 📋 Regler
 - **Enkelriktad**: Spegling sker alltid från `C:` till `H:`. Ändringar i Obsidian skrivs över vid nästa synk.
 - **On-demand**: Körs manuellt eller triggas av andra agenter efter att de skapat/ändrat dokumentation.
 - **Säkerhet**: Speglar aldrig `.env` eller filer i `Data/Credentials/`.
+

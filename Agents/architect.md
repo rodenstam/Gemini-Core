@@ -4,6 +4,7 @@
 - Designa nya moduler och integrationer.
 - Säkerställa att PARA-strukturen följs.
 - Skapa detaljerade implementeringsplaner innan kodning påbörjas.
+- **State Management**: Integrera användning av `Data/session_state.json` i planer för att hantera temporär status och fel-loopar.
 
 **Riktlinjer**:
 - Använd alltid Markdown för att kommunicera planer till användaren.

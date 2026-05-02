@@ -2,6 +2,25 @@
 
 Här loggas alla större arkitektoniska förändringar och sessioner på systemnivå.
 
+## [2026-05-02] - Dialectic Forum & Modular Agents (v4.1)
+**Status:** Slutförd ✅
+**Beskrivning:** Formalisering av "Dialectic Forum" som en kärnkomponent i systemet genom skapandet av ett modulärt agentbibliotek.
+
+### Genomförda åtgärder:
+1.  **Modular Agent Personas:** Skapat dedikerade instruktionsfiler för:
+    *   `Agents/pragmatist.md`: Fokus på DX och enkelhet.
+    *   `Agents/visionary.md`: Fokus på autonomi och innovation.
+    *   `Agents/auditor.md`: Fokus på integritet och manifest-validitet.
+2.  **Dialectic Protocol v2.0:** Uppdaterat `Agents/DIALECTIC_PROTOCOL.md` för att stödja dynamiska agent-uppställningar baserat på forumets syfte.
+3.  **Brainstorming Integration:** Uppdaterat `Skills/brainstorming/SKILL.md` med "Dialectic Mode" som en officiell fas i utforskningen.
+4.  **Governance Update:** Uppdaterat `WORKFLOW.md` och `GEMINI.md` för att reflektera v4.1 arkitekturen.
+
+### Resultat:
+- Systemet har nu en strukturerad metod för "intern debatt" som minskar risken för ensidiga beslut.
+- Tydligare ansvarsområden för de olika perspektiven under planering.
+
+---
+
 ## [2026-05-01] - Workflow Optimization: Agent Dialectic (v3.1)
 **Status:** Slutförd ✅
 **Beskrivning:** Optimering av systemets arbetsflöde genom en "Agent Dialectic" mellan arkitektoniska och pragmatiska perspektiv. Resultatet är v3.1 som balanserar säkerhet med hastighet.

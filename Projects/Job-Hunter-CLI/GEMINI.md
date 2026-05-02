@@ -1,3 +1,13 @@
+---
+version: 4.0
+type: project
+dependencies:
+  - shared: gdrive_helper.py
+  - skill: brainstorming
+stats:
+  success_rate: 0.95
+  last_run: 2026-05-01
+---
 # 🏹 Project: Job Hunter CLI
 
 ## Context
@@ -26,3 +36,4 @@ Varje ansökan ska sparas i `02 Areas/Arbetsliv/ansökningar/[Datum] - [Arbetsgi
 1. **Kompetensprofiler:** Primär källa för yrkesspecifik expertis och bevis.
 2. **Master CV:** Källa för kronologisk historik och kontaktuppgifter.
 3. **Master Personligt brev:** Källa för språklig ton och personlig presentation.
+

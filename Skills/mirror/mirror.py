@@ -2,6 +2,7 @@ import os
 import shutil
 import json
 from pathlib import Path
+from datetime import datetime
 
 class MirrorSkill:
     def __init__(self, settings_path="settings.json"):
@@ -17,7 +18,7 @@ class MirrorSkill:
         
         # Mapping rules: local_subdir -> obsidian_subdir
         self.mappings = {
-            "Workspace": "Management",
+            "Workspace": "Workspace",
             "Projects": "Projects",
             "Skills": "Skills",
             "docs": "System/docs"
@@ -25,72 +26,104 @@ class MirrorSkill:
         
         self.allowed_extensions = {'.md', '.pdf', '.png', '.jpg', '.jpeg', '.gif'}
 
-    def get_mirror_path(self, local_path):
+    def get_mirror_path(self, local_path, root_override=None):
         """Calculates the target path in Obsidian based on mapping rules."""
+        base_root = root_override if root_override else self.mirror_root
         local_path = Path(local_path).absolute()
         
-        # Find relative path from source root
         try:
             rel_path = local_path.relative_to(self.source_root)
         except ValueError:
-            return None # File is outside source root
+            return None
             
         parts = list(rel_path.parts)
-        
         if not parts:
-            return self.mirror_root
+            return base_root
             
-        # Check if first part of path is in our mappings
         if parts[0] in self.mappings:
             parts[0] = self.mappings[parts[0]]
             
-        return self.mirror_root.joinpath(*parts)
+        return base_root.joinpath(*parts)
 
-    def mirror_file(self, file_path):
-        """Mirrors a single file if it matches the criteria."""
-        file_path = Path(file_path)
+    def generate_status_badge(self, success, count):
+        """Creates MIRROR_STATUS.md in the mirror root."""
+        status_path = self.mirror_root / "MIRROR_STATUS.md"
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        status = "✅ Healthy" if success else "❌ Failed"
         
-        if file_path.suffix.lower() not in self.allowed_extensions:
-            return False
-            
-        target_path = self.get_mirror_path(file_path)
-        if not target_path:
-            return False
-            
-        # Ensure target directory exists
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Copy file
+        content = f"""# 🪞 Mirror Status
+- **Status:** {status}
+- **Last Sync:** {timestamp}
+- **Files Processed:** {count}
+- **Engine:** Gemini-Core v4.0 (Atomic Stage-and-Swap)
+"""
         try:
-            shutil.copy2(file_path, target_path)
-            print(f" mirrored: {file_path.name} -> {target_path.relative_to(self.mirror_root)}")
-            return True
+            status_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(status_path, 'w', encoding='utf-8') as f:
+                f.write(content)
         except Exception as e:
-            print(f" error mirroring {file_path.name}: {e}")
-            return False
+            print(f"Error generating status badge: {e}")
 
     def mirror_all(self):
-        """Performs a full mirror of all allowed files in mapped directories."""
-        print(f"🚀 Starting full mirror to {self.mirror_root}...")
-        count = 0
+        """Performs a Stage-and-Swap mirror for atomic updates."""
+        print(f"🚀 Starting atomic mirror to {self.mirror_root}...")
         
-        # Mirror root level .md files
-        for file in self.source_root.glob("*.md"):
-            if self.mirror_file(file):
-                count += 1
+        staging_dir = self.mirror_root.parent / ".mirror_staging"
+        if staging_dir.exists():
+            shutil.rmtree(staging_dir)
+        staging_dir.mkdir(parents=True, exist_ok=True)
+        
+        count = 0
+        success = True
+        
+        try:
+            # 1. Populate Staging
+            # Root files
+            for file in self.source_root.glob("*.md"):
+                if file.is_file() and file.suffix.lower() in self.allowed_extensions:
+                    target = self.get_mirror_path(file, root_override=staging_dir)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(file, target)
+                    count += 1
+            
+            # Mapped directories
+            for local_dir in self.mappings.keys():
+                dir_path = self.source_root / local_dir
+                if dir_path.exists():
+                    for file in dir_path.rglob("*"):
+                        if file.is_file() and "__pycache__" not in str(file):
+                            if file.suffix.lower() in self.allowed_extensions:
+                                target = self.get_mirror_path(file, root_override=staging_dir)
+                                target.parent.mkdir(parents=True, exist_ok=True)
+                                shutil.copy2(file, target)
+                                count += 1
+
+            # 2. Swap (Atomic-ish)
+            # We swap top-level directories and root files
+            for item in os.listdir(staging_dir):
+                s_item = staging_dir / item
+                d_item = self.mirror_root / item
                 
-        # Mirror mapped directories
-        for local_dir in self.mappings.keys():
-            dir_path = self.source_root / local_dir
-            if dir_path.exists():
-                for file in dir_path.rglob("*"):
-                    if file.is_file() and "__pycache__" not in str(file):
-                        if self.mirror_file(file):
-                            count += 1
-                            
-        print(f"✅ Mirror complete. {count} files processed.")
+                if d_item.exists():
+                    if d_item.is_dir():
+                        shutil.rmtree(d_item)
+                    else:
+                        os.remove(d_item)
+                
+                if s_item.is_dir():
+                    shutil.move(str(s_item), str(d_item))
+                else:
+                    shutil.move(str(s_item), str(d_item))
+
+            print(f"✅ Atomic mirror complete. {count} files processed.")
+        except Exception as e:
+            print(f"❌ Mirror failed: {e}")
+            success = False
+        finally:
+            if staging_dir.exists():
+                shutil.rmtree(staging_dir)
+            self.generate_status_badge(success, count)
 
 if __name__ == "__main__":
-    # Quick test execution
     mirror = MirrorSkill()
     mirror.mirror_all()

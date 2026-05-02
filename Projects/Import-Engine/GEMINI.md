@@ -1,3 +1,13 @@
+---
+version: 4.0
+type: project
+dependencies:
+  - shared: gdrive_helper.py
+  - shared: gdrive_import_tool.py
+stats:
+  success_rate: 0.98
+  last_run: 2026-05-01
+---
 # 📥 Project: Import-Engine (Nexus)
 
 ## Context
@@ -19,7 +29,7 @@ Detta projekt hanterar logiken för att migrera och synkronisera material från 
 
 ## Primary Commands
 - **Bulk Import:** `python "Engine/Importers/bulk_import.py" <folder_id> "<vault_path>"`
-- **Single Import:** `python "Engine/Importers/gdrive_import_tool.py" ...` (Se pins.md för detaljer)
+- **Single Import:** `python "Engine/Importers/gdrive_import_tool.py" ...` (Se DECISIONS.md för detaljer)
 
 ## 🏗️ Folder Structure (PARA Distinction)
 Systemet anpassar import-strukturen beroende på vilken PARA-kategori materialet tillhör:
@@ -40,4 +50,5 @@ Här integreras materialet direkt i ytans befintliga struktur utan den extra `at
 ## ⚖️ Linking Rules
 - **Internal Only:** Inga externa Drive-länkar i brödtext. Använd `[[Filnamn]]`.
 - **Cleanup:** Vid "Total Migrering" från `00_INKORG`, rensa bort `original_url` och Digital Tvilling-block när materialet är säkrat i Obsidian.
+
 

@@ -10,7 +10,7 @@
 - [x] Integration av lokala kompetensprofiler i ansökningslogiken (Deep Tailoring).
 - [x] Implementerat filter för Lund (kommunkod 1281).
 - [x] Automatisk generering av ansökningsmappar med annons, instruktioner och AI-prompt.
-- [x] Projektstruktur och dokumentation (`GEMINI.md`, `PROJECT_PLAN.md`, `pins.md`) på plats.
+- [x] Projektstruktur och dokumentation (`GEMINI.md`, `SPECS.md`, `DECISIONS.md`) på plats.
 
 ## 🚀 Prioriterat (Fas 1: Automation)
 - [ ] Integrera Gemini API direkt i `job_hunter.py` för automatisk textgenerering.

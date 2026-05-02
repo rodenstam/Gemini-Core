@@ -1,19 +1,29 @@
-# 🏛️ Gemini Core: Master Context (v3.0)
+---
+version: 4.1
+type: core
+dependencies:
+  - skill: mirror
+  - shared: auditor.py
+stats:
+  success_rate: 1.0
+  last_run: 2026-05-02
+---
+# 🏛️ Gemini Core: Master Context (v4.1)
 
-Detta är det övergripande operativsystemet för all AI-automation. Systemet är nu migrerat till en lokal arkitektur på `C:\Gemini-Core` för exekvering, med spegling till Obsidian-valvet på Google Drive (`H:\My Drive\Obsidian`).
+Detta är det centrala operativsystemet för AI-automation. Systemet drivs av en **Manifest-Driven arkitektur** (v4.1) med ett utökat **Agent-Modulärt bibliotek** för Dialectic Forums.
 
 ## ⚡️ Driftläge: YOLO (Autonomous Mode)
-1. **Local Execution**: All kod och logik körs från `C:\Gemini-Core`.
+1. **Local Bus Execution**: All kod och logik körs från `C:\Gemini-Core`. Volatil data lagras i `Data/session_state.json`.
 2. **Professional Setup**: Separera exekvering (C:) från presentation (H:).
-3. **Mirror-Logic**: All operativ dokumentation speglas automatiskt från `C:` till `H:` via `Mirror-Skill`.
-4. **Agentisk Struktur**: Vi använder "Skills" (instruktioner) och "Agents" (personor) för att styra AI-arbetet.
+3. **Manifest-First**: Alla projekt och skills styrs av YAML-manifest för automatisk validering.
+4. **Agent-Modulär Struktur**: Vi använder ett bibliotek av specialiserade agenter (`Agents/`) som kan kombineras i Dialectic Forums för att lösa komplexa problem.
 
 ## 📂 Systemstruktur (C:\Gemini-Core)
 - **`Workspace/`**: Övergripande planering och arkitektur (Speglar till `Management/` i Obsidian).
-- **`Projects/`**: Aktiva projekt (t.ex. Job-Hunter, Lego-Collector). Varje projekt har sin egen kod och `docs/`.
-- **`Skills/`**: Modulära AI-förmågor (t.ex. `mirror`, `brainstorming`). (Speglar till `Skills/` i Obsidian).
-- **`Shared/`**: Globala Python-verktyg och hjälpare.
-- **`Data/`**: Systemets minne (Credentials & Register). **Ignoreras av Git.**
+- **`Projects/`**: Aktiva projekt. Varje projekt är "Self-Describing" via sitt manifest.
+- **`Skills/`**: Modulära AI-förmågor. (Speglar till `Skills/` i Obsidian).
+- **`Shared/`**: Globala Python-verktyg och hjälpare (t.ex. `auditor.py`).
+- **`Data/`**: Systemets minne (Credentials & Session State). **Ignoreras av Git.**
 - **`docs/`**: Teknisk systemdokumentation. (Speglar till `System/docs/` i Obsidian).
 
 ## 🪞 Speglings-mappning (C: -> H:)
@@ -25,10 +35,11 @@ Systemet använder `Skills/mirror/mirror.py` för att hålla Obsidian uppdaterat
 - Root `.md` -> Root
 
 ## 📜 Regler & Mandat
-- **Sanningen på C:** Alla ändringar i dokumentation SKALL ske på `C:\Gemini-Core`. Obsidian-vyn på `H:` är endast för läsning.
-- **Auto-Mirror**: Efter att ha skapat eller ändrat en Markdown-fil som ska vara synlig i Obsidian, KÖR `python Skills/mirror/mirror.py`.
+- **Manifest-First**: Innan ett projekt påbörjas eller ändras SKALL dess manifest i `GEMINI.md` valideras eller uppdateras.
+- **Sanningen på C**: Alla ändringar i dokumentation SKALL ske på `C:\Gemini-Core`.
+- **Auto-Mirror**: Efter att ha skapat eller ändrat en Markdown-fil, KÖR `python Skills/mirror/mirror.py`.
 - **Git First**: Alla kodändringar ska commitas till det privata GitHub-repot.
-- **Säkerhet**: Spegla ALDRIG filer i `Data/Credentials/` eller `.env`.
+- **Local State Bus**: Agenter SKALL använda `Data/session_state.json` för att spåra aktuell fas, uppgift och temporära variabler för att minska beroendet av stora Markdown-filer för kortsiktigt minne.
 
 ---
-*Senast uppdaterad: 2026-05-01 (Mirror-Skill implementerad)*
+*Senast uppdaterad: 2026-05-01 (v4.0 Migration Phase 1)*

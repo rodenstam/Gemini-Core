@@ -34,10 +34,10 @@ Gemini-Core/
 
 ### 2. Proaktiv Dokumentation
 Systemet styrs av ett mandat där Gemini automatiskt uppdaterar eller föreslår uppdateringar av "The Core Four" dokumentation efter betydande förändringar:
-1. `ROADMAP.md` (Strategi)
-2. `tasks.md` (Operativt)
-3. `devlog.md` (Historik)
-4. `pins.md` (Teknisk referens)
+1. `SPECS.md` (Strategi)
+2. `TASKS.md` (Operativt)
+3. `LOG.md` (Historik)
+4. `DECISIONS.md` (Teknisk referens)
 
 ### 3. Arvshierarki (Context Inheritance)
 Den globala `GEMINI.md` definierar systemets driftläge (t.ex. YOLO-mode), medan projekt-specifika `GEMINI.md` finjusterar regler för det enskilda projektet.
