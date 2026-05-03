@@ -8,44 +8,41 @@ from datetime import datetime, timedelta
 
 class Auditor:
     """
-    Gemini-Core v4.0 System Auditor.
+    Gemini-Core v4.3 System Auditor.
     Validates manifests, checks dependencies, generates dependency graphs, 
-    and detects zombie projects.
+    and detects orphan files using Crawl-Up inheritance.
     """
     def __init__(self, root_dir):
         self.root = os.path.normpath(root_dir)
         self.manifests = {}  # absolute_path -> data
+        self.id_to_path = {} # id -> absolute_path
         self.report = []
         self.dependency_graph = {}
         self.zombies = []
+        self.orphans = []
 
     def find_manifests(self):
         """Discovers all GEMINI.md and SKILL.md files and parses their YAML."""
-        targets = [
-            (self.root, "GEMINI.md"),
-            (os.path.join(self.root, "Projects"), "GEMINI.md"),
-            (os.path.join(self.root, "Skills"), "SKILL.md")
-        ]
-
-        for base_dir, filename in targets:
-            if not os.path.exists(base_dir):
-                continue
+        # Standard search paths for manifests
+        for root, dirs, files in os.walk(self.root):
+            # Skip hidden and venv directories
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d != '.venv' and d != '__pycache__']
             
-            if base_dir == self.root:
-                # Root level
-                self._process_file(os.path.join(base_dir, filename))
-            else:
-                # Subdirectories (Projects or Skills)
-                for item in os.listdir(base_dir):
-                    item_path = os.path.join(base_dir, item)
-                    if os.path.isdir(item_path):
-                        self._process_file(os.path.join(item_path, filename))
+            for filename in files:
+                if filename in ["GEMINI.md", "SKILL.md"]:
+                    file_path = os.path.join(root, filename)
+                    self._process_file(file_path)
 
     def _process_file(self, file_path):
-        if os.path.exists(file_path):
-            data = self.parse_manifest(file_path)
-            if data:
-                self.manifests[file_path] = data
+        data = self.parse_manifest(file_path)
+        if data:
+            self.manifests[file_path] = data
+            manifest_id = data.get('id')
+            if manifest_id:
+                if manifest_id in self.id_to_path:
+                    self.report.append(f"[❌] Duplicate ID '{manifest_id}' found at {os.path.relpath(file_path, self.root)} and {os.path.relpath(self.id_to_path[manifest_id], self.root)}")
+                else:
+                    self.id_to_path[manifest_id] = file_path
 
     def parse_manifest(self, file_path):
         """Extracts and parses YAML frontmatter from a markdown file."""
@@ -57,11 +54,45 @@ class Auditor:
                     yaml_str = match.group(1)
                     return yaml.safe_load(yaml_str)
                 else:
+                    # Don't report missing YAML for non-manifest files during find_manifests
+                    # but manifests SHOULD have them.
                     self.report.append(f"[!] {os.path.relpath(file_path, self.root)}: No YAML frontmatter found.")
                     return None
         except Exception as e:
             self.report.append(f"[ERROR] {os.path.relpath(file_path, self.root)}: Failed to parse YAML: {e}")
             return None
+
+    def find_orphans(self):
+        """Identifies files that cannot be mapped to a manifest using Crawl-Up."""
+        print("🔍 Searching for orphan files...")
+        manifest_dirs = [os.path.dirname(p) for p in self.manifests.keys()]
+        
+        for root, dirs, files in os.walk(self.root):
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d != '.venv' and d != '__pycache__']
+            
+            for filename in files:
+                if filename.startswith('.') or filename in ["GEMINI.md", "SKILL.md"]:
+                    continue
+                
+                file_path = os.path.join(root, filename)
+                if not self._get_owner_manifest(file_path):
+                    self.orphans.append(os.path.relpath(file_path, self.root))
+
+    def _get_owner_manifest(self, file_path):
+        """Crawl-Up algorithm to find the nearest manifest."""
+        current_dir = os.path.dirname(file_path)
+        while current_dir.startswith(self.root):
+            # Check for GEMINI.md or SKILL.md in current_dir
+            for manifest_name in ["GEMINI.md", "SKILL.md"]:
+                m_path = os.path.join(current_dir, manifest_name)
+                if m_path in self.manifests:
+                    return m_path
+            
+            parent_dir = os.path.dirname(current_dir)
+            if parent_dir == current_dir: # Reached root of filesystem
+                break
+            current_dir = parent_dir
+        return None
 
     def validate_manifests(self):
         """Checks for required fields and valid dependency paths."""
@@ -69,17 +100,25 @@ class Auditor:
             rel_path = os.path.relpath(path, self.root)
             manifest_type = data.get('type', 'unknown')
 
-            # 1. Check Required Fields based on type
-            if manifest_type == 'lite':
-                required_fields = ['version', 'type', 'status', 'updated']
-            else:
-                required_fields = ['version', 'type', 'dependencies', 'stats']
+            # 1. Check Required Fields (Standard v1.0)
+            required_fields = ['id', 'version', 'type']
+            
+            if manifest_type == 'plan':
+                required_fields.extend(['status'])
+            elif manifest_type != 'lite':
+                required_fields.extend(['dependencies', 'stats'])
             
             for field in required_fields:
                 if field not in data:
                     self.report.append(f"[-] {rel_path}: Missing required field '{field}'.")
 
-            # 2. Validate "Engineering Four" for standard projects
+            # 2. ID vs Folder check (Warning only)
+            manifest_id = data.get('id')
+            folder_name = os.path.basename(os.path.dirname(path))
+            if manifest_id and manifest_type in ['project', 'skill'] and manifest_id != folder_name.lower().replace('_', '-'):
+                 self.report.append(f"[i] {rel_path}: ID '{manifest_id}' differs from folder name '{folder_name}'.")
+
+            # 3. Validate "Engineering Four" for standard projects
             if manifest_type == 'project':
                 project_dir = os.path.dirname(path)
                 docs_dir = os.path.join(project_dir, "docs")
@@ -91,10 +130,10 @@ class Auditor:
                         if not os.path.exists(os.path.join(docs_dir, doc)):
                             self.report.append(f"[-] {rel_path}: Missing '{doc}' in docs/.")
 
-            # 3. Validate Dependencies
+            # 4. Validate Dependencies
             deps = data.get('dependencies', [])
             if not isinstance(deps, list):
-                if manifest_type != 'lite': # Lite manifests might not have dependencies
+                if manifest_type not in ['lite', 'plan']:
                     self.report.append(f"[-] {rel_path}: 'dependencies' should be a list.")
                 continue
 
@@ -114,7 +153,11 @@ class Auditor:
                     self.dependency_graph[node_name].append(f"{dep_type}:{dep_val}")
 
     def _get_node_name(self, path, data):
-        """Returns a unique name for the manifest node."""
+        """Returns a unique name for the manifest node using ID if available."""
+        manifest_id = data.get('id')
+        if manifest_id:
+            return f"{data.get('type')}:{manifest_id}"
+        
         rel_path = os.path.relpath(path, self.root)
         if data.get('type') == 'core':
             return "core"
@@ -187,17 +230,21 @@ class Auditor:
         except Exception as e:
             print(f"[-] Failed to trigger mirror: {e}")
 
-    def run(self, trigger_mirror=False):
+    def run(self, trigger_mirror=False, check_orphans=False):
         """Executes the full audit process."""
-        print(f"--- Gemini Core Auditor v4.0 | {datetime.now().strftime('%Y-%m-%d %H:%M')} ---")
+        print(f"--- Gemini Core Auditor v4.3 | {datetime.now().strftime('%Y-%m-%d %H:%M')} ---")
         
         self.find_manifests()
         self.validate_manifests()
+        
+        if check_orphans:
+            self.find_orphans()
+            
         self.detect_zombies()
         self.save_results()
 
         # Output Report
-        if not self.report and not self.zombies:
+        if not self.report and not self.zombies and not self.orphans:
             print("✅ SYSTEM HEALTHY: All manifests and dependencies are valid.")
             if trigger_mirror:
                 self._trigger_mirror()
@@ -206,6 +253,11 @@ class Auditor:
                 print(f"\nIssues Found ({len(self.report)}):")
                 for issue in self.report:
                     print(f"  {issue}")
+            
+            if self.orphans:
+                print(f"\nOrphan Files Detected ({len(self.orphans)}):")
+                for orphan in self.orphans:
+                    print(f"  [👻] {orphan}")
             
             if self.zombies:
                 print(f"\nZombie Projects Detected ({len(self.zombies)}):")
@@ -220,8 +272,9 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     root_dir = os.path.normpath(os.path.join(script_dir, ".."))
     
-    # Check if --mirror flag is passed
+    # Flags
     trigger_mirror = "--mirror" in sys.argv
+    check_orphans = "--orphans" in sys.argv
     
     auditor = Auditor(root_dir)
-    auditor.run(trigger_mirror=trigger_mirror)
+    auditor.run(trigger_mirror=trigger_mirror, check_orphans=check_orphans)

@@ -1,4 +1,5 @@
 ---
+id: citable-rag
 version: 4.0
 type: project
 dependencies:

@@ -1,4 +1,5 @@
 ---
+id: mirror
 version: 4.0
 type: skill
 dependencies:

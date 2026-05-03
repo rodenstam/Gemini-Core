@@ -7,6 +7,14 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu():
+    # --- Background Semantic Indexing ---
+    # Vi kör en tyst indexering vid varje start för att hålla minnet färskt.
+    try:
+        subprocess.Popen([sys.executable, "Skills/semantic-search/cli.py", "index", "--silent"])
+    except:
+        pass # Ignorera fel vid startup för att inte stoppa menyn
+    # ------------------------------------
+
     while True:
         clear_screen()
         print("="*40)
@@ -18,6 +26,8 @@ def main_menu():
         print("4. 🧱 Launch Lego-Collector")
         print("5. 🧠 Launch Citable-RAG")
         print("6. 📊 Git Status")
+        print("7. 📚 Librarian: System Tidy")
+        print("8. 🔧 Librarian: Auto-Fix Archive")
         print("q. 🚪 Exit")
         print("-"*40)
         
@@ -52,6 +62,14 @@ def main_menu():
         elif choice == '6':
             print("\nChecking Git status...")
             os.system("git status")
+            input("\nPress Enter to return to menu...")
+        elif choice == '7':
+            print("\nLaunching Librarian Tidy...")
+            os.system(f"{sys.executable} Skills/librarian/cli.py tidy")
+            input("\nPress Enter to return to menu...")
+        elif choice == '8':
+            print("\nLaunching Librarian Auto-Fix...")
+            os.system(f"{sys.executable} Skills/librarian/cli.py fix")
             input("\nPress Enter to return to menu...")
         elif choice == 'q':
             print("Goodbye!")

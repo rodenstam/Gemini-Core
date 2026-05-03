@@ -1,4 +1,5 @@
 ---
+id: job-hunter-cli
 version: 4.0
 type: project
 dependencies:

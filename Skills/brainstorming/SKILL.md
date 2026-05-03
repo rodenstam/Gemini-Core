@@ -1,4 +1,5 @@
 ---
+id: brainstorming
 version: 4.0
 type: skill
 dependencies: []

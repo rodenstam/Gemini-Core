@@ -1,4 +1,5 @@
 ---
+id: lego-collector
 version: 4.0
 type: project
 dependencies:
